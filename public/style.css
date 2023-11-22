@@ -1,46 +1,123 @@
+/****** Main Styling ******/
+
 body {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  color: #222;
-  background-color: #fff;
-  text-align: center;
-  line-height: 1.4em;
+  padding-top: 6rem;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	color: aliceblue;
+	background-image: linear-gradient(#0b1a4c, #172554);
+	text-align: center;
+	line-height: 1.4em;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items:center;
 }
 
-main {
-  padding: 0;
-  margin-top: 40px;
-}
-
-h3 {
-  margin-top: 30px;
-}
-
-
-
-.user-stories li {
-  margin-bottom: 1em;
-}
-
-a {
-  color: #2574a9;
+main, section {
+  width: 100%;
 }
 
 form {
-  margin: 10px auto;
-  padding: 20px;
-  max-width: 600px;
+  width: 100%;
+  display: flex;
+  align-items:center;
+  justify-content: center;  
+  gap:1rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
-label {
-  margin-right: 10px;
+.input-submit {
+  margin-top: 13px;
+  background-color: #0ea5e9;
+  color:white;
+  font-weight: bold;
+  padding: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.input-submit:hover {
+  background-color: #38bdf8;
 }
 
-input {
-  padding: 5px;
+a {
+	text-decoration: none;
+	color: #94a3b8;
+}
+a:hover {
+	color: #e2e8f0;
+  transition: all 0.5s;
+}
+a:not(:hover) {
+  transition: all 0.5s;
+}
+a:visited {
+	text-decoration: none;
+  }
+  
+.custom-field {
+  position: relative;
+  font-size: 14px;
+  border-top: 20px solid transparent;
+  margin-bottom: 5px;
+  display: inline-block;
+  --field-padding: 12px;
 }
 
-input[type='text'] {
-  width: 220px;
-  text-align: center;
+.custom-field input {
+
+}
+
+.custom-field .placeholder {
+  text-align: left;
+  position: absolute;
+  left: var(--field-padding);
+  width: calc(100% - (var(--field-padding) * 2));
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 22px;
+  line-height: 100%;
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: 
+    top 0.3s ease,
+    color 0.3s ease,
+    font-size 0.3s ease;
+}
+
+.custom-field input {
+  padding: var(--field-padding);
+  border-radius: 3px;
+  width: 300px;
+  font-size: 14px;
+  box-shadow: inset 0 1px 0 0 #ffffff0d;
+  background: none;
+  border: 2px solid rgb(71 85 105);
+  transition: border-color 0.3s ease;
+  color: white;
+}
+
+.custom-field input + .placeholder {
+  left: 8px;
+  padding: 0 5px;
+}
+
+.custom-field input.dirty,
+.custom-field input:not(:placeholder-shown),
+.custom-field input:focus {
+  border-color: white;
+  transition-delay: 0.1s
+}
+
+.custom-field input.dirty + .placeholder,
+.custom-field input:not(:placeholder-shown) + .placeholder,
+.custom-field input:focus + .placeholder {
+  top: 0;
+  font-size: 10px;
+  color: #aaa;
+  background:#172554;
+  width: auto
 }

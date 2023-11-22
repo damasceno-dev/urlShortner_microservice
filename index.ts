@@ -24,7 +24,7 @@ app.use('/public', express.static(`${process.cwd()}/public`));
 
 //for getting values from form using req.body
 app.use(express.json());
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/', function(req, res) {
@@ -73,10 +73,10 @@ app.all('/api/shorturl', async (req, res) => {
     const url = req.body.url.trim();
     const dnsValid = await isDnsValid(url);
     
-    if (!dnsValid) {
-       resObject = { error: "invalid url" };
-    } else if (!isValidUrl(url)) {
+    if (!isValidUrl(url)) {
        resObject = { error: "invalid URL format" };
+    } else if (!dnsValid) {
+       resObject = { error: "invalid url" };
     } else {
       //VERIFY IF STRING EXISTS IN DATABASE
       const existingUrl = await ParsedUrl.findOne({ url: url }).exec();
