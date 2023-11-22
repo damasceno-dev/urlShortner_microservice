@@ -73,9 +73,7 @@ app.all('/api/shorturl', async (req, res) => {
     const url = req.body.url.trim();
     const dnsValid = await isDnsValid(url);
     
-    if (!isValidUrl(url)) {
-       resObject = { error: "invalid URL format" };
-    } else if (!dnsValid) {
+    if (!isValidUrl(url) || !dnsValid) {
        resObject = { error: "invalid url" };
     } else {
       //VERIFY IF STRING EXISTS IN DATABASE
