@@ -90,14 +90,14 @@ app.all('/api/shorturl', async (req, res) => {
         if (latestRegister.length !== 0) {
           //ITS NOT THE FIRST ENTRY IN DATABASE
           nextId = latestRegister.id + 1;
-        } else {
+        } 
           const newUrl = new ParsedUrl({ id: nextId, url: url });
           await newUrl.save();
         
           const urlJustCreated = await ParsedUrl.findOne({ url: url }).exec();
         
           resObject = { "original_url": urlJustCreated.url, "short_url": urlJustCreated.id }
-        }
+        
       }
     }
     res.redirect('/api/shorturl');
@@ -113,39 +113,6 @@ app.get('/api/shorturl/:id', async (req, res) => {
   const urlToRedirect = await ParsedUrl.findOne({ id: id }).exec();
   res.redirect(urlToRedirect.url);
 })
-
-app.post('test/api/shorturl', async (req, res) => {
-  const url = req.body.url.trim();
-
-  if (!isValidUrl(url)) {
-    return res.json({ error: "invalid URL format" });
-  }
-
-  if (!isDnsValid(url)) {
-    return res.json({ error: "invalid url" });
-  }
-
-  const existingUrl = await ParsedUrl.findOne({ url: url }).exec();
-
-  //VERIFY IF STRING EXISTS IN DATABASE
-  if (existingUrl) {
-    //IF EXISTS, RETURN ITS ID
-    return res.json({ "original_url": existingUrl.url, "short_url": existingUrl.id })
-  }
-  //ELSE, REGISTER ON DATABASE AND RETURN ITS ID
-  const latestRegister = await ParsedUrl.findOne().sort({ _id: -1 });
-  let nextId = 0;
-  if (latestRegister.length !== 0) {
-    nextId = latestRegister.id + 1;
-  }
-  const newUrl = new ParsedUrl({ id: nextId, url: url });
-  await newUrl.save();
-
-  const urlJustCreated = await ParsedUrl.findOne({ url: url }).exec();
-
-  return res.json({ "original_url": urlJustCreated.url, "short_url": urlJustCreated.id })
-
-});
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
